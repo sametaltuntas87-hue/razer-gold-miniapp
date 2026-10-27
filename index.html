@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0b">
+  <meta name="description" content="Razer Gold bozdurma teklif talebinizi hazırlayın ve WhatsApp üzerinden iletişime geçin.">
+  <title>Razer Gold | Premium Bozdurma Merkezi</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08090a;
+      --surface: #111315;
+      --surface-raised: #17191b;
+      --gold: #d8b45a;
+      --gold-light: #f6e3a0;
+      --gold-dark: #8f6a24;
+      --text: #f5f2e9;
+      --muted: #a5a7a9;
+      --subtle: #73777a;
+      --border: rgba(216,180,90,.22);
+      --green: #48d597;
+      --radius: 22px;
+      --shadow: 0 22px 60px rgba(0,0,0,.34);
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -18%, rgba(216,180,90,.18), transparent 42%),
+        radial-gradient(ellipse at 100% 38%, rgba(105,80,26,.08), transparent 34%),
+        linear-gradient(180deg, #0b0c0d 0%, #08090a 70%);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: max(14px, env(safe-area-inset-top)) 16px max(26px, env(safe-area-inset-bottom));
+    }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    .app { max-width: 560px; margin: 0 auto; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 7px 2px 22px; }
+    .brand { display:flex; align-items:center; gap:11px; min-width:0; }
+    .brand-mark {
+      width:48px; height:48px; border-radius:16px; display:grid; place-items:center; flex:none;
+      color:#12110c; font-weight:1000; font-size:23px; letter-spacing:-2px;
+      background:linear-gradient(145deg,#fff0b2 0%,#e0bc61 42%,#9b7022 100%);
+      box-shadow:0 8px 28px rgba(216,180,90,.17), inset 0 1px 1px rgba(255,255,255,.65);
+      border:1px solid rgba(255,239,180,.65);
+    }
+    .brand-title { font-size:14px; font-weight:900; letter-spacing:1.7px; white-space:nowrap; }
+    .brand-caption { font-size:10px; color:var(--gold); letter-spacing:2px; margin-top:4px; font-weight:800; }
+    .online-pill { display:flex; align-items:center; gap:7px; padding:8px 10px; border-radius:999px; border:1px solid rgba(72,213,151,.18); background:rgba(72,213,151,.06); color:#a4e9c9; font-size:10px; white-space:nowrap; }
+    .online-dot { width:6px; height:6px; background:var(--green); border-radius:50%; box-shadow:0 0 10px rgba(72,213,151,.55); }
+    .hero { position:relative; overflow:hidden; padding:24px 20px 23px; border-radius:28px; border:1px solid var(--border); background:linear-gradient(135deg,rgba(29,27,21,.98),rgba(15,16,17,.98) 55%,rgba(12,13,14,.98)); box-shadow:var(--shadow); }
+    .hero:after { content:""; position:absolute; width:200px; height:200px; right:-76px; top:-85px; border-radius:50%; border:1px solid rgba(216,180,90,.12); box-shadow:0 0 0 22px rgba(216,180,90,.025),0 0 0 48px rgba(216,180,90,.018); pointer-events:none; }
+    .eyebrow { display:flex; align-items:center; gap:8px; color:var(--gold-light); font-size:10px; letter-spacing:2.1px; text-transform:uppercase; font-weight:900; }
+    .eyebrow-line { height:1px; width:22px; background:var(--gold); }
+    h1 { margin:15px 0 12px; font-size:clamp(31px,8.5vw,43px); line-height:1.03; letter-spacing:-1.7px; font-weight:850; }
+    h1 span { color:var(--gold-light); }
+    .hero-copy { max-width:390px; color:#b6b6b2; font-size:13px; line-height:1.7; margin:0; }
+    .hero-tags { display:flex; gap:7px; flex-wrap:wrap; margin-top:19px; }
+    .tag { display:flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.035); color:#d3d0c6; border-radius:999px; padding:7px 10px; font-size:10px; }
+    .tag svg { color:var(--gold); }
+    .section-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:26px 2px 13px; }
+    .section-heading h2 { margin:0; font-size:16px; letter-spacing:-.3px; }
+    .section-kicker { color:var(--subtle); font-size:10px; letter-spacing:1.3px; font-weight:800; }
+    .form-card { padding:19px; border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); background:linear-gradient(150deg,rgba(23,25,26,.98),rgba(15,16,17,.98)); box-shadow:0 15px 38px rgba(0,0,0,.2); }
+    .card-top { display:flex; align-items:center; gap:12px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,.07); }
+    .step-icon { display:grid; place-items:center; width:38px; height:38px; flex:none; border-radius:12px; background:rgba(216,180,90,.1); color:var(--gold-light); border:1px solid rgba(216,180,90,.15); }
+    .card-top strong { display:block; font-size:14px; }
+    .card-top small { display:block; color:var(--muted); font-size:11px; margin-top:4px; }
+    .step-number { margin-left:auto; color:var(--gold); font-size:10px; letter-spacing:1.3px; font-weight:900; white-space:nowrap; }
+    .field { margin-top:17px; }
+    label { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#e9e5db; font-size:12px; font-weight:750; margin:0 0 8px; }
+    .optional { color:#85898b; font-size:10px; font-weight:500; }
+    .input-wrap { position:relative; }
+    input, select {
+      width:100%; min-height:49px; padding:0 13px; border-radius:12px; border:1px solid #343638;
+      background:#0b0c0d; color:var(--text); outline:none; font-size:14px;
+      transition:border-color .18s ease, box-shadow .18s ease;
+    }
+    select { appearance:none; padding-right:42px; }
+    input::placeholder { color:#65696c; }
+    input:focus, select:focus { border-color:rgba(216,180,90,.85); box-shadow:0 0 0 3px rgba(216,180,90,.09); }
+    .select-chevron { pointer-events:none; position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--gold); }
+    .field-note { margin-top:7px; font-size:10px; line-height:1.5; color:#777b7e; }
+    .summary { margin-top:18px; border-radius:14px; padding:14px; border:1px solid rgba(216,180,90,.14); background:linear-gradient(110deg,rgba(216,180,90,.075),rgba(216,180,90,.025)); }
+    .summary-top { display:flex; align-items:center; gap:8px; color:#d9c68e; font-size:11px; font-weight:800; }
+    .summary-copy { color:#a7a8a5; font-size:11px; line-height:1.55; margin-top:6px; }
+    .primary {
+      display:flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:55px; margin-top:17px;
+      border:0; border-radius:14px; cursor:pointer; color:#17130a; font-size:14px; font-weight:900;
+      background:linear-gradient(110deg,#f8e5a1 0%,#d9b458 54%,#f1d47d 100%);
+      box-shadow:0 9px 26px rgba(216,180,90,.14); transition:transform .15s ease, filter .15s ease;
+    }
+    .primary:active { transform:scale(.99); filter:brightness(.96); }
+    .primary svg { flex:none; }
+    .privacy { display:flex; align-items:flex-start; gap:8px; margin-top:12px; color:#797d80; font-size:10px; line-height:1.55; }
+    .privacy svg { flex:none; color:var(--gold); margin-top:1px; }
+    .trust-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:13px; }
+    .trust-item { padding:13px 8px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.065); background:rgba(255,255,255,.025); text-align:center; }
+    .trust-icon { width:29px; height:29px; margin:0 auto 8px; display:grid; place-items:center; border-radius:10px; color:var(--gold-light); background:rgba(216,180,90,.09); }
+    .trust-title { font-size:10px; font-weight:800; }
+    .trust-copy { margin-top:4px; color:#828689; font-size:9px; line-height:1.4; }
+    .steps { display:grid; gap:9px; }
+    .process { display:flex; gap:12px; align-items:flex-start; padding:13px; border-radius:14px; border:1px solid rgba(255,255,255,.065); background:rgba(255,255,255,.025); }
+    .process-num { display:grid; place-items:center; width:29px; height:29px; flex:none; border-radius:10px; background:rgba(216,180,90,.11); color:var(--gold-light); font-size:11px; font-weight:900; }
+    .process strong { display:block; font-size:12px; }
+    .process p { margin:5px 0 0; color:#96999a; font-size:11px; line-height:1.5; }
+    .faq { border:1px solid rgba(255,255,255,.08); border-radius:15px; overflow:hidden; background:rgba(255,255,255,.025); }
+    details + details { border-top:1px solid rgba(255,255,255,.07); }
+    summary { cursor:pointer; padding:15px; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12px; font-weight:750; }
+    summary::-webkit-details-marker { display:none; }
+    summary:after { content:"+"; color:var(--gold); font-size:18px; font-weight:400; }
+    details[open] summary:after { content:"−"; }
+    details p { padding:0 15px 15px; margin:0; color:#a2a5a5; font-size:11px; line-height:1.65; }
+    .contact-card { display:flex; align-items:center; gap:13px; padding:15px; border-radius:17px; border:1px solid rgba(72,213,151,.16); background:linear-gradient(120deg,rgba(72,213,151,.06),rgba(255,255,255,.02)); }
+    .contact-icon { display:grid; place-items:center; width:42px; height:42px; flex:none; border-radius:14px; background:rgba(72,213,151,.1); color:#8de8bd; }
+    .contact-text { flex:1; min-width:0; }
+    .contact-text strong { display:block; font-size:12px; }
+    .contact-text span { display:block; color:#8f9693; font-size:10px; margin-top:4px; }
+    .contact-arrow { color:#8de8bd; }
+    footer { padding:22px 8px 4px; text-align:center; color:#666a6d; font-size:9px; line-height:1.7; }
+    footer .footer-brand { color:#aaa18a; font-size:10px; font-weight:800; letter-spacing:1.8px; margin-bottom:7px; }
+    .toast { display:none; padding:12px 13px; margin-top:11px; border-radius:11px; background:rgba(255,90,90,.08); border:1px solid rgba(255,90,90,.18); color:#ffb7b7; font-size:11px; line-height:1.5; }
+    .toast.show { display:block; }
+    @media (max-width:360px) {
+      body { padding-left:12px; padding-right:12px; }
+      .hero { padding:21px 16px; }
+      .form-card { padding:15px; }
+      .online-pill { font-size:9px; padding:7px 8px; }
+      .brand-title { font-size:12px; }
+      .trust-grid { gap:5px; }
+      .trust-item { padding-left:5px; padding-right:5px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">R</div>
+        <div>
+          <div class="brand-title">RAZER GOLD</div>
+          <div class="brand-caption">BOZDURMA MERKEZİ</div>
+        </div>
+      </div>
+      <div class="online-pill"><span class="online-dot"></span> WhatsApp destek</div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> Premium işlem deneyimi</div>
+      <h1>Bakiyeni<br><span>teklife dönüştür.</span></h1>
+      <p class="hero-copy">Bozdurma talebini kolayca hazırla. Güncel oranı, net ödeme tutarını ve işlem koşullarını doğrudan WhatsApp üzerinden öğren.</p>
+      <div class="hero-tags">
+        <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Kolay talep</span>
+        <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6v5c0 5 3.4 8.2 8 10 4.6-1.8 8-5 8-10V6l-8-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Kod paylaşmadan</span>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <h2>Bozdurma talebi oluştur</h2>
+      <span class="section-kicker">01 — TALEP</span>
+    </div>
+
+    <section class="form-card">
+      <div class="card-top">
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.5 7.7 7.5 4.4 7.5-4.4M12 12v8.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>İşlem bilgileri</strong><small>İhtiyacımız olan temel bilgileri gir.</small></div>
+        <span class="step-number">ADIM 1/2</span>
+      </div>
+
+      <form id="request-form" novalidate>
+        <div class="field">
+          <label for="kind">Ürün türü</label>
+          <div class="input-wrap">
+            <select id="kind" name="kind">
+              <option value="Razer Gold PIN">Razer Gold PIN</option>
+              <option value="Razer Gold bakiye">Razer Gold bakiye</option>
+              <option value="Diğer">Diğer</option>
+            </select>
+            <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="amount">Nominal tutar <span class="optional">Zorunlu</span></label>
+          <input id="amount" name="amount" type="text" inputmode="decimal" autocomplete="off" maxlength="50" placeholder="Örn. 10 USD veya 500 TL" aria-describedby="amount-note">
+          <div class="field-note" id="amount-note">Kartın/bakiyenin tutarını ve para birimini yaz. Burada otomatik kur veya fiyat hesaplanmaz.</div>
+        </div>
+
+        <div class="field">
+          <label for="name">Adın <span class="optional">İsteğe bağlı</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="60" placeholder="Sana nasıl hitap edelim?">
+        </div>
+
+        <div class="summary">
+          <div class="summary-top">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 8v4l2.5 2.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Net tutar WhatsApp'ta teyit edilir
+          </div>
+          <div class="summary-copy">Gönderim öncesinde güncel bozdurma oranını, alacağın net tutarı ve işlem şartlarını destek ekibinden öğrenebilirsin.</div>
+        </div>
+
+        <button class="primary" type="submit">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.5-4.7a8.5 8.5 0 1 1 16-4.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.5c.3-.5.5-.5.8-.5h.4c.2 0 .3.1.4.4l.7 1.7c.1.2 0 .4-.1.5l-.5.6c-.2.2-.2.3-.1.5.4.8 1.1 1.5 1.9 1.9.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.6.8c.2.1.3.2.3.4 0 .3-.2 1.1-.7 1.4-.5.4-1.1.5-1.8.3-1-.3-2.2-.8-3.4-2-1.1-1.1-1.7-2.4-1.9-3.3-.2-.7.1-1.3.4-1.7Z" fill="currentColor"/></svg>
+          WhatsApp'tan teklif al
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="toast" id="toast" role="alert"></div>
+      </form>
+
+      <div class="privacy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z" stroke="currentColor" stroke-width="1.7"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Güvenliğin için Razer Gold PIN/kodunu bu forma yazma. Talep bilgileri yalnızca WhatsApp mesajı olarak hazırlanır.</span>
+      </div>
+    </section>
+
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="trust-title">Basit süreç</div><div class="trust-copy">Birkaç alanda talep</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12.5 9 17l11-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="trust-title">Net teklif</div><div class="trust-copy">Önce koşulları teyit et</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.3L3 20l1.3-5.1A8.5 8.5 0 1 1 21 11.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+        <div class="trust-title">WhatsApp</div><div class="trust-copy">Mesajını kendin gönder</div>
+      </div>
+    </div>
+
+    <div class="section-heading"><h2>Nasıl çalışır?</h2><span class="section-kicker">3 KOLAY ADIM</span></div>
+    <section class="steps">
+      <div class="process"><div class="process-num">01</div><div><strong>Tutarını belirt</strong><p>Ürün türünü ve nominal tutarı yaz; PIN veya kod paylaşma.</p></div></div>
+      <div class="process"><div class="process-num">02</div><div><strong>WhatsApp mesajını kontrol et</strong><p>Hazırlanan talep mesajı WhatsApp'ta açılır. Bilgileri kontrol edip kendin gönderirsin.</p></div></div>
+      <div class="process"><div class="process-num">03</div><div><strong>Teklifi ve şartları teyit et</strong><p>İşlem yapmadan önce net ödeme tutarını, süreyi ve tüm koşulları yazılı olarak doğrula.</p></div></div>
+    </section>
+
+    <div class="section-heading"><h2>Sık sorulan sorular</h2><span class="section-kicker">YARDIM</span></div>
+    <section class="faq">
+      <details><summary>Bozdurma tutarı otomatik hesaplanıyor mu?</summary><p>Hayır. Güncel oranlar değişebileceği için uygulama otomatik fiyat veya ödeme tutarı göstermez. Net teklif WhatsApp üzerinden teyit edilir.</p></details>
+      <details><summary>Razer Gold PIN kodumu buraya yazmalı mıyım?</summary><p>Hayır. Bu form PIN veya kod istemez. PIN bilgilerini bu sayfaya girmeyin; işlem koşullarını ve karşı tarafın güvenilirliğini önceden doğrulayın.</p></details>
+      <details><summary>Talep gönderilince işlem tamamlanır mı?</summary><p>Hayır. Buton yalnızca WhatsApp mesajını hazırlar. Mesajı siz gönderirsiniz; talep ve işlem koşulları karşılıklı teyit edilmeden işlem tamamlanmış sayılmaz.</p></details>
+    </section>
+
+    <div class="section-heading"><h2>İletişim</h2><span class="section-kicker">WHATSAPP</span></div>
+    <a class="contact-card" href="https://wa.me/905314349525" target="_blank" rel="noopener noreferrer">
+      <div class="contact-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.5-4.7a8.5 8.5 0 1 1 16-4.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+      <div class="contact-text"><strong>WhatsApp üzerinden iletişim</strong><span>+90 531 434 95 25</span></div>
+      <svg class="contact-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
+    <footer>
+      <div class="footer-brand">RAZER GOLD · BOZDURMA MERKEZİ</div>
+      Bu arayüz teklif talebi hazırlamak içindir; otomatik fiyatlandırma, ödeme veya işlem takibi yapmaz.<br>
+      Razer Gold markasıyla resmî bağlantısı olduğu iddia edilmez.
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      try {
+        const tg = window.Telegram && window.Telegram.WebApp;
+        if (tg) {
+          tg.ready();
+          tg.expand();
+          try { tg.setHeaderColor('#090a0b'); } catch (_) {}
+          try { tg.setBackgroundColor('#08090a'); } catch (_) {}
+        }
+      } catch (_) {}
+
+      const form = document.getElementById('request-form');
+      const amountField = document.getElementById('amount');
+      const toast = document.getElementById('toast');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const kind = document.getElementById('kind').value.trim();
+        const amount = amountField.value.trim();
+        const name = document.getElementById('name').value.trim();
+
+        if (!amount) {
+          toast.textContent = 'Lütfen kart veya bakiye tutarını yazın. Örnek: 10 USD veya 500 TL.';
+          toast.classList.add('show');
+          amountField.focus();
+          return;
+        }
+        if (amount.length < 2) {
+          toast.textContent = 'Lütfen tutarı ve para birimini biraz daha açık yazın.';
+          toast.classList.add('show');
+          amountField.focus();
+          return;
+        }
+
+        const lines = [
+          'Merhaba, Razer Gold bozdurma teklifi almak istiyorum.',
+          'Ürün türü: ' + kind,
+          'Nominal tutar: ' + amount,
+          name ? 'Ad: ' + name : '',
+          '',
+          'Güncel oranı, elime geçecek net tutarı, işlem süresini ve koşulları paylaşabilir misiniz?'
+        ].filter(Boolean);
+
+        const url = 'https://wa.me/905314349525?text=' + encodeURIComponent(lines.join('\n'));
+        toast.classList.remove('show');
+        window.location.href = url;
+      });
+
+      amountField.addEventListener('input', function () {
+        if (amountField.value.trim()) toast.classList.remove('show');
+      });
+    })();
+  </script>
+</body>
+</html>
